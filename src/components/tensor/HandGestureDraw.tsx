@@ -6,14 +6,20 @@ interface GestureProps {
   boxWidth: string;
   boxHeight: string;
   pointsList: handPoseDetection.Keypoint[] | undefined;
+  blanketOpacity: boolean;
 }
 export const HandGestureDraw = ({
   boxHeight,
   boxWidth,
   pointsList,
+  blanketOpacity,
 }: GestureProps) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const ContainerProps = { parentW: boxWidth, parentH: boxHeight };
+  const ContainerProps = {
+    parentW: boxWidth,
+    parentH: boxHeight,
+    bkgOpacity: blanketOpacity,
+  };
   const [ctx, setCtx] = useState<CanvasRenderingContext2D | null | undefined>(
     undefined
   );
@@ -35,27 +41,27 @@ export const HandGestureDraw = ({
 
   // Infinity Gauntlet Style
   const style = [
-    { color: "yellow", size: 10 },
-    { color: "gold", size: 4 },
-    { color: "green", size: 8 },
-    { color: "gold", size: 4 },
-    { color: "gold", size: 4 },
-    { color: "purple", size: 8 },
-    { color: "gold", size: 4 },
-    { color: "gold", size: 4 },
-    { color: "gold", size: 4 },
-    { color: "blue", size: 8 },
-    { color: "gold", size: 4 },
-    { color: "gold", size: 4 },
-    { color: "gold", size: 4 },
-    { color: "red", size: 8 },
-    { color: "gold", size: 4 },
-    { color: "gold", size: 4 },
-    { color: "gold", size: 4 },
-    { color: "orange", size: 8 },
-    { color: "gold", size: 4 },
-    { color: "gold", size: 4 },
-    { color: "gold", size: 4 },
+    { color: "yellow", size: 8 },
+    { color: "gold", size: 3 },
+    { color: "green", size: 5 },
+    { color: "gold", size: 3 },
+    { color: "gold", size: 3 },
+    { color: "purple", size: 5 },
+    { color: "gold", size: 3 },
+    { color: "gold", size: 3 },
+    { color: "gold", size: 3 },
+    { color: "blue", size: 5 },
+    { color: "gold", size: 3 },
+    { color: "gold", size: 3 },
+    { color: "gold", size: 3 },
+    { color: "red", size: 5 },
+    { color: "gold", size: 3 },
+    { color: "gold", size: 3 },
+    { color: "gold", size: 3 },
+    { color: "orange", size: 5 },
+    { color: "gold", size: 3 },
+    { color: "gold", size: 3 },
+    { color: "gold", size: 3 },
   ];
 
   const drawHand = (
@@ -96,7 +102,7 @@ export const HandGestureDraw = ({
             Math.round(landmarks[secondJointIndex].y) / 3.2
           );
           ctx.strokeStyle = "plum";
-          ctx.lineWidth = 4;
+          ctx.lineWidth = 2;
           ctx.stroke();
         }
       }

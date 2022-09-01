@@ -3,10 +3,12 @@ import styled from "styled-components";
 export const FullParentContainer = styled.div<{
   parentW: string;
   parentH: string;
+  bkgOpacity: boolean;
 }>`
   width: ${(props) => props.parentW};
   height: ${(props) => props.parentH};
-  background-color: transparent;
+  background-color: ${(props) =>
+    props.bkgOpacity ? "rgba(0,0,0,0.7)" : "transparent"};
   position: absolute;
   top: 0px;
   left: 0px;

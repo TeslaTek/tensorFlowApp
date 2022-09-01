@@ -14,7 +14,7 @@ export const FullScreenContainer = styled.main`
 
 export const CameraVisor = styled.div`
     width: 500px;
-    height: 550px;
+    height: 580px;
     border: none;
     background-color: transparent;
     padding: 0px;

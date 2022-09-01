@@ -19,6 +19,12 @@ export const HandsDetector = () => {
     handPoseDetection.Keypoint[] | undefined
   >(undefined);
 
+  const [blanket, setBlanket] = useState(false);
+
+  const toggleSwitch = () => {
+    setBlanket(!blanket);
+  };
+
   let detector: handPoseDetection.HandDetector | undefined;
 
   const detectHands = async () => {
@@ -96,13 +102,14 @@ export const HandsDetector = () => {
   }, [handFound]);
 
   return (
-    <ScreenContainer>
+    <ScreenContainer switchAction={toggleSwitch}>
       <GestureContainer>
         <WebcamBox webcamRef={webcamComponent} />
         <HandGestureDraw
           boxHeight="480px"
           boxWidth="480px"
           pointsList={handsPoints}
+          blanketOpacity={blanket}
         />
       </GestureContainer>
     </ScreenContainer>

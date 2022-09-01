@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { FaceDetector } from "../screens/face/FaceDetector";
 import { HandsDetector } from "../screens/hands/HandsDetector";
 
@@ -8,7 +8,7 @@ export const AppRouter = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/">
-          <Route index element={<HandsDetector />} />
+          <Route index element={<Navigate to="home" />} />
           <Route path="home" element={<HandsDetector />} />
           <Route path="face" element={<FaceDetector />} />
         </Route>

@@ -18,7 +18,11 @@ export const FaceDetector = () => {
   const [facePoints, setFacePoints] = useState<
     faceLandmarksDetection.Keypoint[] | undefined
   >(undefined);
+  const [blanket, setBlanket] = useState(false);
 
+  const toggleSwitch = () => {
+    setBlanket(!blanket);
+  };
   let detector: faceLandmarksDetection.FaceLandmarksDetector | undefined;
 
   const detectFaces = async () => {
@@ -53,7 +57,7 @@ export const FaceDetector = () => {
           {
             runtime: "tfjs", // or 'mediapipe'
             maxFaces: 1,
-            refineLandmarks: true
+            refineLandmarks: true,
           };
         await tf
           .ready()
@@ -95,13 +99,14 @@ export const FaceDetector = () => {
   }, [faceFound]);
 
   return (
-    <ScreenContainer>
+    <ScreenContainer switchAction={toggleSwitch}>
       <GestureContainer>
         <WebcamBox webcamRef={webcamComponent} />
         <FaceGestureDraw
           boxHeight="480px"
           boxWidth="480px"
           pointsList={facePoints}
+          blanketOpacity={blanket}
         />
       </GestureContainer>
     </ScreenContainer>
