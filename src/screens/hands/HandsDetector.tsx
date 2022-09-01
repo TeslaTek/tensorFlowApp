@@ -74,7 +74,7 @@ export const HandsDetector = () => {
             // eslint-disable-next-line react-hooks/exhaustive-deps
             detector = handDetector;
             toast.success("Start searching hands");
-            handDetection.current = setInterval(detectHands, 500);
+            handDetection.current = setInterval(detectHands, 100);
           })
           .catch((error) => {
             toast.error(`Tensor Problems: ${error} `);

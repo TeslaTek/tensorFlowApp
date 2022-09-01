@@ -1,14 +1,15 @@
 import React from "react";
 import { Toaster } from "react-hot-toast";
-import { HandsDetector } from "./screens/tensor/HandsDetector";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { AppRouter } from "./router/AppRouter";
 
 function App() {
   return (
     <>
-      <HandsDetector />
+      <AppRouter />
       <Toaster />
     </>
-  )
+  );
 }
 
 export default App;

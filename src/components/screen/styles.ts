@@ -9,5 +9,17 @@ export const FullScreenContainer = styled.main`
     align-items: center;
     justify-content: center;
     position: relative;
-    background-color: #f5f5f5;
+    background-color: #ffffff;
+`;
+
+export const CameraVisor = styled.div`
+    width: 500px;
+    height: 550px;
+    border: none;
+    background-color: transparent;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
 `;

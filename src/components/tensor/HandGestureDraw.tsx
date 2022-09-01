@@ -88,11 +88,11 @@ export const HandGestureDraw = ({
           // Draw path
           ctx.beginPath();
           ctx.moveTo(
-            Math.round(landmarks[firstJointIndex].x) / 1.8,
+            Math.round(landmarks[firstJointIndex].x) / 1.6,
             Math.round(landmarks[firstJointIndex].y) / 3.2
           );
           ctx.lineTo(
-            Math.round(landmarks[secondJointIndex].x) / 1.8,
+            Math.round(landmarks[secondJointIndex].x) / 1.6,
             Math.round(landmarks[secondJointIndex].y) / 3.2
           );
           ctx.strokeStyle = "plum";
@@ -104,7 +104,7 @@ export const HandGestureDraw = ({
       // Loop through landmarks and draw em
       for (let i = 0; i < landmarks.length; i++) {
         // Get x point
-        const x = Math.round(landmarks[i].x) / 1.8;
+        const x = Math.round(landmarks[i].x) / 1.6;
         // Get y point
         const y = Math.round(landmarks[i].y) / 3.2;
         // Start drawing
