@@ -4,8 +4,8 @@ import {
   MdBackHand,
   MdFaceRetouchingNatural,
   MdSportsHandball,
-  MdHelpCenter,
 } from "react-icons/md";
+import { FaCube } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 
 export const ScreenTabs = () => {
@@ -24,13 +24,13 @@ export const ScreenTabs = () => {
         </Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link eventKey="link-2">
+        <Nav.Link eventKey="/pose" href="/pose">
           <MdSportsHandball size={32} />
         </Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link eventKey="disabled">
-          <MdHelpCenter size={32} />
+        <Nav.Link eventKey="/objects" href="/objects">
+          <FaCube size={32} />
         </Nav.Link>
       </Nav.Item>
     </Nav>

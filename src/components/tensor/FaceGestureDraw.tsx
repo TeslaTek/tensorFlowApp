@@ -137,8 +137,13 @@ export const FaceGestureDraw = ({
   }, [pointsList]);
 
   return (
-    <FullParentContainer  {...ContainerProps}>
-      <StyledCanvas parentH={boxHeight} parentW={boxWidth} ref={canvasRef} />
+    <FullParentContainer {...ContainerProps}>
+      <StyledCanvas
+        parentH={boxHeight}
+        parentW={boxWidth}
+        ref={canvasRef}
+        mirrored
+      />
     </FullParentContainer>
   );
 };

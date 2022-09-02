@@ -29,6 +29,7 @@ export const GesturePoint = styled.div<{ pointX: string; pointY: string }>`
 export const StyledCanvas = styled.canvas<{
   parentW: string;
   parentH: string;
+  mirrored?: boolean;
 }>`
   position: absolute;
   margin-left: auto;
@@ -39,5 +40,5 @@ export const StyledCanvas = styled.canvas<{
   z-index: 10;
   width: ${(props) => props.parentW};
   height: ${(props) => props.parentH};
-  transform: scaleX(-1);
+  ${(props) => props.mirrored && "transform: scaleX(-1)"};
 `;

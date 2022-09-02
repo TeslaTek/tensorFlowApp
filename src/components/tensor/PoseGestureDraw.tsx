@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
-import * as handPoseDetection from "@tensorflow-models/hand-pose-detection";
+import * as poseDetection from "@tensorflow-models/pose-detection";
 import { FullParentContainer, StyledCanvas } from "./styles";
 
 interface GestureProps {
   boxWidth: string;
   boxHeight: string;
-  pointsList: handPoseDetection.Keypoint[] | undefined;
+  pointsList: poseDetection.Keypoint[] | undefined;
   blanketOpacity: boolean;
 }
-export const HandGestureDraw = ({
+export const PoseGestureDraw = ({
   boxHeight,
   boxWidth,
   pointsList,
@@ -24,48 +24,25 @@ export const HandGestureDraw = ({
     undefined
   );
 
-  interface IFingerJoints {
-    thumb: number[];
-    indexFinger: number[];
-    middleFinger: number[];
-    ringFinger: number[];
-    pinky: number[];
+  interface IPoseFigures {
+    body: number[];
+    face: number[];
+    leftArm: number[];
+    rightArm: number[];
+    leftLeg: number[];
+    rightLeg: number[];
   }
-  const fingerJoints = {
-    thumb: [0, 1, 2, 3, 4],
-    indexFinger: [0, 5, 6, 7, 8],
-    middleFinger: [0, 9, 10, 11, 12],
-    ringFinger: [0, 13, 14, 15, 16],
-    pinky: [0, 17, 18, 19, 20],
+  const poseFigures: IPoseFigures = {
+    body: [11, 12, 24, 23, 11],
+    face: [1, 2, 3, 7, 9, 10, 8, 6, 5, 4, 1, 0, 4],
+    leftArm: [11, 13, 15, 17, 19, 21, 15],
+    rightArm: [12, 14, 16, 18, 20, 22, 16],
+    leftLeg: [23, 25, 27, 31, 29, 27],
+    rightLeg: [24, 26, 28, 32, 30, 28],
   };
 
-  // Infinity Gauntlet Style
-  const style = [
-    { color: "yellow", size: 8 },
-    { color: "gold", size: 3 },
-    { color: "green", size: 5 },
-    { color: "gold", size: 3 },
-    { color: "gold", size: 3 },
-    { color: "purple", size: 5 },
-    { color: "gold", size: 3 },
-    { color: "gold", size: 3 },
-    { color: "gold", size: 3 },
-    { color: "blue", size: 5 },
-    { color: "gold", size: 3 },
-    { color: "gold", size: 3 },
-    { color: "gold", size: 3 },
-    { color: "red", size: 5 },
-    { color: "gold", size: 3 },
-    { color: "gold", size: 3 },
-    { color: "gold", size: 3 },
-    { color: "orange", size: 5 },
-    { color: "gold", size: 3 },
-    { color: "gold", size: 3 },
-    { color: "gold", size: 3 },
-  ];
-
   const drawHand = (
-    predictions: handPoseDetection.Keypoint[],
+    predictions: poseDetection.Keypoint[],
     ctx: CanvasRenderingContext2D | null
   ) => {
     // Check if we have predictions
@@ -83,13 +60,13 @@ export const HandGestureDraw = ({
         );
       }
       // Loop through fingers
-      for (let j = 0; j < Object.keys(fingerJoints).length; j++) {
-        let finger = Object.keys(fingerJoints)[j] as keyof IFingerJoints;
+      for (let j = 0; j < Object.keys(poseFigures).length; j++) {
+        let figure = Object.keys(poseFigures)[j] as keyof IPoseFigures;
         //  Loop through pairs of joints
-        for (let k = 0; k < fingerJoints[finger].length - 1; k++) {
+        for (let k = 0; k < poseFigures[figure].length - 1; k++) {
           // Get pairs of joints
-          const firstJointIndex = fingerJoints[finger][k];
-          const secondJointIndex = fingerJoints[finger][k + 1];
+          const firstJointIndex = poseFigures[figure][k];
+          const secondJointIndex = poseFigures[figure][k + 1];
 
           // Draw path
           ctx.beginPath();
@@ -101,7 +78,7 @@ export const HandGestureDraw = ({
             Math.round(landmarks[secondJointIndex].x) / 1.6,
             Math.round(landmarks[secondJointIndex].y) / 3.2
           );
-          ctx.strokeStyle = "plum";
+          ctx.strokeStyle = "white";
           ctx.lineWidth = 2;
           ctx.stroke();
         }
@@ -109,17 +86,18 @@ export const HandGestureDraw = ({
 
       // Loop through landmarks and draw em
       for (let i = 0; i < landmarks.length; i++) {
-        // Get x point
-        const x = Math.round(landmarks[i].x) / 1.6;
-        // Get y point
-        const y = Math.round(landmarks[i].y) / 3.2;
-        // Start drawing
-        ctx.beginPath();
-        ctx.arc(x, y, style[i]["size"], 0, 3 * Math.PI, false);
+        if (i !== 1 && i !== 3 && i !== 4 && i !== 6 && i !== 8 && i !== 7) {
+          // Get x point
+          const x = Math.round(landmarks[i].x) / 1.6;
+          // Get y point
+          const y = Math.round(landmarks[i].y) / 3.2;
+          // Start drawing
+          ctx.beginPath();
 
-        // Set line color
-        ctx.fillStyle = style[i]["color"];
-        ctx.fill();
+          ctx.arc(x, y, i === 5 || i === 2 ? 3 : 2, 0, 2 * Math.PI);
+          ctx.fillStyle = i === 5 || i === 2 ? "white" : "gold";
+          ctx.fill();
+        }
       }
     }
   };
